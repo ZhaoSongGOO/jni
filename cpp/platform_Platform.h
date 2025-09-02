@@ -12,16 +12,15 @@ extern "C" {
  * Method:    nativeGetString
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_platform_Platform_nativeGetString
-  (JNIEnv *, jobject);
+JNIEXPORT jstring JNICALL Java_platform_Platform_nativeGetString(JNIEnv *,
+                                                                 jobject);
 
 /*
  * Class:     platform_Platform
  * Method:    nativeUpdate
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_platform_Platform_nativeUpdate
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_platform_Platform_nativeUpdate(JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

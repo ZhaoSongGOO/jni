@@ -38,12 +38,24 @@ public class Platform{
 
     public native void nativeUpdate();
 
+    static int count = 0;
+
+    static String addSuffix(String input){
+        return input + " " + ".java";
+    }
+
+    static void printNativeMessage(String string){
+        System.out.println(string);
+    }
+
     public static void main(String [] args){
         Platform plt = new Platform();
         String result = plt.nativeGetString();
         System.out.println("\n------------------\n"+result);
+        System.out.println(count);
         plt.showLabel();
         plt.nativeUpdate();
+        System.out.println(count);
         plt.showLabel();
         for (int i = 0; i < plt.delegates.size(); i++) {
             PlatformDelegate delegate = plt.delegates.get(i);
