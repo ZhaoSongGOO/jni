@@ -11,7 +11,39 @@ extern "C" {
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_platform_Platform_nativeGetString
-  (JNIEnv *env, jobject){
+  (JNIEnv *env, jobject thiz){
+    jclass clazz = env->GetObjectClass(thiz);
+    if(clazz == nullptr){
+        return env->NewStringUTF("Get Object error!");
+    }
+    jmethodID method_id = env->GetMethodID(clazz, "registerDelegate", "(Lplatform/Platform$PlatformDelegate;)V");
+    if(method_id == nullptr){
+        return env->NewStringUTF("Get methodid error!");
+    }
+
+    jclass delegate_class = env->FindClass("platform/Platform$PlatformDelegate");
+    if(delegate_class == nullptr){
+        return env->NewStringUTF("Get delegate class error!");
+    }
+
+    jmethodID delegate_class_constructor_id = env->GetMethodID(delegate_class, "<init>", "(Ljava/lang/String;)V");
+    if(delegate_class_constructor_id == nullptr){
+        return env->NewStringUTF("Get delegate class constructor error!");
+    }
+
+    jstring delegate_name = env->NewStringUTF("Delegate from native!");
+
+    if(delegate_name == nullptr){
+        return env->NewStringUTF("build delegate_name error!");
+    }
+
+    jobject delegate_object = env->NewObject(delegate_class, delegate_class_constructor_id, delegate_name);
+    if(delegate_object == nullptr){
+        return env->NewStringUTF("build delegate error!");
+    }
+
+    env->CallVoidMethod(thiz, method_id, delegate_object);
+
     return env->NewStringUTF("Hello from JNI !");
 }
 
