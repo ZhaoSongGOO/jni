@@ -28,14 +28,23 @@ public class Platform{
         this.delegates.add(delegate);
     }
 
-    
+    private String label = "Java String";
+
+    public void showLabel(){
+        System.out.println(this.label);
+    }
 
     public native String nativeGetString();
+
+    public native void nativeUpdate();
 
     public static void main(String [] args){
         Platform plt = new Platform();
         String result = plt.nativeGetString();
-        System.out.println(result);
+        System.out.println("\n------------------\n"+result);
+        plt.showLabel();
+        plt.nativeUpdate();
+        plt.showLabel();
         for (int i = 0; i < plt.delegates.size(); i++) {
             PlatformDelegate delegate = plt.delegates.get(i);
             delegate.handler();

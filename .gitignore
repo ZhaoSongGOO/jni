@@ -1,3 +1,5 @@
 *.class
 *.dylib
 *.so
+.idea
+jni.iml
