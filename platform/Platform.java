@@ -45,6 +45,12 @@ public class Platform {
 
   public native String[] nativeMetaInfo();
 
+  public native void nativeException();
+
+  public void triggerException() throws Exception {
+    throw new Exception("Java Exception");
+  }
+
   public static void main(String[] args) {
     Platform plt = new Platform();
     String result = plt.nativeGetString();
@@ -63,6 +69,12 @@ public class Platform {
     for (int i = 0; i < plt.delegates.size(); i++) {
       PlatformDelegate delegate = plt.delegates.get(i);
       delegate.handler();
+    }
+
+    try {
+      plt.nativeException();
+    } catch (Exception e) {
+      System.out.println(e);
     }
   }
 }

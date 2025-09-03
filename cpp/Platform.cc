@@ -146,6 +146,37 @@ Java_platform_Platform_nativeMetaInfo(JNIEnv *env, jobject obj) {
   return meta;
 }
 
+JNIEXPORT void JNICALL Java_platform_Platform_nativeException(JNIEnv *env,
+                                                              jobject obj) {
+  jclass clazz = env->GetObjectClass(obj);
+  if (clazz == nullptr) {
+    return;
+  }
+  // jmethodID method_id = env->GetMethodID(
+  //     clazz, "unknown", "(V)V");
+  //   if (env->ExceptionCheck()) {
+  //       jthrowable mThrowable;
+  //       mThrowable = env->ExceptionOccurred();
+  //       env->ExceptionDescribe();
+  //       env->ExceptionClear();
+  //       jclass clazz_exception = env->FindClass("java/lang/Exception");
+  //       env->ThrowNew(clazz_exception, "JNI抛出的异常！");
+  //       env->DeleteLocalRef(clazz_exception);
+  //   }
+  jmethodID method_id = env->GetMethodID(clazz, "triggerException", "()V");
+  env->CallVoidMethod(obj, method_id);
+  if (env->ExceptionCheck()) {
+    jthrowable mThrowable;
+    mThrowable = env->ExceptionOccurred();
+    env->ExceptionDescribe();
+    env->ExceptionClear();
+    jclass clazz_exception = env->FindClass("java/lang/Exception");
+    env->ThrowNew(clazz_exception, "JNI抛出的异常！");
+    env->DeleteLocalRef(clazz_exception);
+  }
+  return;
+}
+
 #ifdef __cplusplus
 }
 #endif

@@ -47,6 +47,14 @@ JNIEXPORT jstring JNICALL Java_platform_Platform_nativeContact(JNIEnv *,
 JNIEXPORT jobjectArray JNICALL Java_platform_Platform_nativeMetaInfo(JNIEnv *,
                                                                      jobject);
 
+/*
+ * Class:     platform_Platform
+ * Method:    nativeException
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_platform_Platform_nativeException(JNIEnv *,
+                                                              jobject);
+
 #ifdef __cplusplus
 }
 #endif
