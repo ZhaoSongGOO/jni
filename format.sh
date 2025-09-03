@@ -11,6 +11,7 @@ FORMATTERS=(
   "gn:gn format"
   "gni:gn format"
   "py:black"
+  "java:clang-format -i"
 )
 
 DEFAULT_EXTENSIONS=()

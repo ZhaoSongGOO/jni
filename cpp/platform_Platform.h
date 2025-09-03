@@ -22,6 +22,31 @@ JNIEXPORT jstring JNICALL Java_platform_Platform_nativeGetString(JNIEnv *,
  */
 JNIEXPORT void JNICALL Java_platform_Platform_nativeUpdate(JNIEnv *, jobject);
 
+/*
+ * Class:     platform_Platform
+ * Method:    nativeSum
+ * Signature: ([I)I
+ */
+JNIEXPORT jint JNICALL Java_platform_Platform_nativeSum(JNIEnv *, jobject,
+                                                        jintArray);
+
+/*
+ * Class:     platform_Platform
+ * Method:    nativeContact
+ * Signature: ([Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_platform_Platform_nativeContact(JNIEnv *,
+                                                               jobject,
+                                                               jobjectArray);
+
+/*
+ * Class:     platform_Platform
+ * Method:    nativeMetaInfo
+ * Signature: ()[Ljava/lang/String;
+ */
+JNIEXPORT jobjectArray JNICALL Java_platform_Platform_nativeMetaInfo(JNIEnv *,
+                                                                     jobject);
+
 #ifdef __cplusplus
 }
 #endif

@@ -101,6 +101,51 @@ JNIEXPORT void JNICALL Java_platform_Platform_nativeUpdate(JNIEnv *env,
   env->DeleteLocalRef(clazz);
 }
 
+JNIEXPORT jint JNICALL Java_platform_Platform_nativeSum(JNIEnv *env,
+                                                        jobject obj,
+                                                        jintArray arr) {
+  jint *inArray = env->GetIntArrayElements(arr, nullptr);
+  jsize length = env->GetArrayLength(arr);
+  int sum = 0;
+  for (int i = 0; i < length; ++i) {
+    sum += *(inArray + 1);
+  }
+  env->ReleaseIntArrayElements(arr, inArray, 0);
+  return sum;
+}
+
+JNIEXPORT jstring JNICALL Java_platform_Platform_nativeContact(
+    JNIEnv *env, jobject obj, jobjectArray arr) {
+  jsize size = env->GetArrayLength(arr);
+  std::string result = "";
+  for (int i = 0; i < size; i++) {
+    jstring string_in = (jstring)env->GetObjectArrayElement(arr, i);
+    const char *c_str = env->GetStringUTFChars(string_in, nullptr);
+    if (c_str == NULL) {
+      env->DeleteLocalRef(string_in);
+      continue;
+    }
+    result += c_str;
+    env->ReleaseStringUTFChars(string_in, c_str);
+    env->DeleteLocalRef(string_in);
+  }
+  return env->NewStringUTF(result.c_str());
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_platform_Platform_nativeMetaInfo(JNIEnv *env, jobject obj) {
+  jclass clazz = env->FindClass("java/lang/String");
+  jobjectArray meta = env->NewObjectArray(3, clazz, nullptr);
+  const char *info[3] = {"version", ":", "0.1"};
+  for (int i = 0; i < 3; ++i) {
+    jstring s = env->NewStringUTF(info[i]);
+    env->SetObjectArrayElement(meta, i, s);
+    env->DeleteLocalRef(s);
+  }
+  env->DeleteLocalRef(clazz);
+  return meta;
+}
+
 #ifdef __cplusplus
 }
 #endif
